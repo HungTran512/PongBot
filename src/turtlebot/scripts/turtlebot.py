@@ -4,6 +4,7 @@ import rospy
 from geometry_msgs.msg import Twist 
 from sensor_msgs.msg import LaserScan
 
+
 def scan_callback(msg):
     global g_range_ahead
     g_range_ahead = msg.ranges[len(msg.ranges)/2]
@@ -25,6 +26,7 @@ state_change_time = rospy.Time.now()
 
 # driving_forward: forward(true) vs. spin inplace (false)
 #   TRUE: until x seconds pass or get close to an obstacle, go forward
+#   FALSE: until y seconds pass, spin in place
 driving_forward = True
 rate = rospy.Rate(1)
 
@@ -62,53 +64,3 @@ while not rospy.is_shutdown():
 
     # Sleep for 1/rate seconds
 rate.sleep()
-# import numpy as np
-
-# class Bouncer:
-#     rospy.loginfo("Bouncing")
-    
-#     def __init__(self):
-#         self.min_distance = 0.4
-#         self.too_close = False
-#         self.range_min = 0
-        
-#         self.fov = 88
-#         self.MAX_LIN_VEL = 0.2
-#         self.MAX_ANG_VEL = 1.5
-        
-#         self.LIN_VEL_STEP_SIZE = 0.01
-#         self.ANG_VEL_STEP_SIZE = 0.1
-        
-#         self.control_linear_vel = 0.0
-#         self.control_angular_vel = 0.0
-#         self.target_linear_vel = 0.0
-#         self.target_angular_vel = 0.0
-        
-#         self.target_angle = 0
-        
-#         self.lidar_ranges= []
-#         self.heading = 0
-        
-#         rospy.init_node("fixed_turn")
-#         rospy.loginfo("Initiallized Robot")
-        
-#         self.sub = rospy.Subscriber('/scan', LaserScan, self.tooClose)  
-#         self.pub = rospy.Publisher('/cmd_vel_mux/input/navi', Twist, queue_size=10)
-        
-#         rospy.on_shutdown(self.stopOnShutDown)
-        
-#         self.twist = Twist()
-        
-#     def makeSimpleProfile(self,output,input,slop):
-#         if input > output:
-#             output = min(input, output+slop)
-#         elif input < output:
-#             input = max(input, output-slop)
-#         else:
-#             output = input
-        
-#         return output
-    
-#     def tooClose(self, msg):
-#         self.range_min = msg.range_min
-#         self.lidar_ranges = np.array(msg.ranges)
