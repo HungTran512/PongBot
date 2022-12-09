@@ -18,7 +18,7 @@ GitHub page: https://github.com/OlafenwaMoses/ImageAI </br>
 
 To run the program you need to download or create a object recognition model. We used ready made model RetinaNet version 2.1.0. linked in the ImageAI documentation. This model was tested to be more accurate and faster on detecting PingPong balls than the YOLOv3 models that are also suggested on the ImageAI documentation.
 
-When you have the model, set its path to variable “path_model”.
+When you have the model, set its path to variable “path_model” on the pongbot_cv.py file.
 
 <h2>Turtlebot Navigation</h2>
 <br></br>
